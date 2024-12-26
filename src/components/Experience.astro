@@ -1,0 +1,43 @@
+---
+import ExperienceItem from "./ExperienceItem.astro";
+
+const EXPERIENCE = [
+  {
+    date: "Actualidad ...",
+    company: "Universitat de Lleida (UdL)",
+    title: "Data Scientist",
+    description: "",
+  },
+  {
+    date: "Noviembre - Diciembre 2024",
+    company: "eCityclic",
+    title: "Junior Software Developer",
+    description:
+      "Desarrollo full-stack de aplicaciones del sector de la Administración electrónica.",
+  },
+  {
+    date: "Marzo - Julio 2024",
+    company: "GFT IT Consulting S.L.U.",
+    title: "Data Scientist Intern",
+    description:
+      "Participación en proyectos de Natural Language Processing y Computer Vision, además de preparación de datasets y desarrollo de demos.",
+  },
+  {
+    date: "Junio - Diciembre 2023",
+    company: "Universitat de Lleida (UdL)",
+    title: "Personal Tècnic",
+    description:
+      "Diseño y desarrollo de aplicaciones, procesamiento de datos y entrenamiento de modelos para el análisis de imágenes hiperespectrales del sector agroalimentario.",
+  },
+];
+---
+
+<ol>
+  {
+    EXPERIENCE.map((experience) => (
+      <li class="ms-1.5">
+        <ExperienceItem {...experience} />
+      </li>
+    ))
+  }
+</ol>
