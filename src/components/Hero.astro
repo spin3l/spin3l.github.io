@@ -1,0 +1,50 @@
+---
+import Badge from "./Badge.astro";
+import GitHubIcon from "./icons/GitHubIcon.astro";
+import LinkedInIcon from "./icons/LinkedInIcon.astro";
+import MailIcon from "./icons/MailIcon.astro";
+import SocialPill from "./icons/SocialPill.astro";
+---
+
+<div class="flex gap-8 mb-4">
+  <img
+    class="rounded-full size-24 mb-2 lg:mb-4 -4 shadow-md shadow-white"
+    src="udl.jpeg"
+    alt="spin3l photo"
+  /><a
+    class="flex justify-center items-center"
+    href="https://www.linkedin.com/in/christian-lopez-garcia02/"
+    target="_blank"
+    rel="noopener"
+  >
+    <!-- <Badge class="bg-blue-100 text-blue-800"
+            >Disponible para trabajar</Badge
+          > -->
+    <Badge class="bg-red-100 text-red-800">Trabajando</Badge>
+  </a>
+</div>
+<h1 class="text-white text-2xl lg:text-4xl flex flex-col gap-x-4 pb-6 lg:pb-10">
+  Hey, soy<br />
+  <span class="font-semibold">Christian López García</span>
+</h1>
+<h2 class="text-xl lg:text-2xl max-w-[700px] text-pretty">
+  <span class="text-yellow-200/90"> Desarrollador Web y Data Scientist</span>.
+  De
+  <span class="text-red-200/90">Lleida, España</span>.
+  <span class="opacity-85">Especializado en crear aplicaciones únicas.</span>
+</h2>
+
+<nav class="flex gap-4 mt-8 flex-wrap">
+  <SocialPill href="https://www.linkedin.com/in/christian-lopez-garcia02/">
+    <LinkedInIcon class="size-6" />
+    LinkedIn
+  </SocialPill>
+  <SocialPill href="https://github.com/spin3l">
+    <GitHubIcon class="size-6" />
+    GitHub
+  </SocialPill>
+  <SocialPill href="mailto:dev.christianlopezgarcia@gmail.com">
+    <MailIcon class="size-6" />
+    Contáctame
+  </SocialPill>
+</nav>

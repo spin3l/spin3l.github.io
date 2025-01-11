@@ -1,16 +1,10 @@
 ---
-import DjangoIcon from "./icons/DjangoIcon.astro";
 import GitHubIcon from "./icons/GitHubIcon.astro";
 import LinkIcon from "./icons/LinkIcon.astro";
 import LinkButton from "./LinkButton.astro";
 
-const TAGS = {
-  DJANGO: {
-    name: "Django",
-    class: "bg-[#113228] text-white",
-    icon: DjangoIcon,
-  },
-};
+import TAGS from "../constants/tags.ts";
+import TagPill from "./TagPill.astro";
 
 const PROJECTS = [
   {
@@ -20,7 +14,7 @@ const PROJECTS = [
     link: "https://view-and-review.onrender.com/",
     github: "https://github.com/GEI-WP/view-and-review",
     image: "/projects/view-and-review.webp",
-    tags: [TAGS.DJANGO],
+    tags: [TAGS.DJANGO, TAGS.BOOTSTRAP],
   },
 ];
 ---
@@ -28,8 +22,8 @@ const PROJECTS = [
 {
   PROJECTS.map(({ title, description, link, github, image, tags }) => (
     <article class="flex flex-col space-x-0 space-y-8 group md:flex-row md:space-x-8 md:space-y-0 shadow-sm">
-      <div class="w-full md:w-1/2">
-        <div class="relative flex flex-col items-center col-span-6 row-span-5 gap-8 transition duration-500 ease-in-out transform shadow-xl overflow-clip rounded-xl sm:rounded-xl md:group-hover:-translate-y-1 md:group-hover:shadow-2xl lg:border lg:border-gray-800 lg:hover:border-gray-700 lg:hover:bg-gray-800/50">
+      <div class="w-full md:w-1/2 cursor-pointer">
+        <div class="relative flex flex-col items-center col-span-6 row-span-5 gap-8 transition duration-200 ease-in-out transform shadow-xl overflow-clip rounded-xl sm:rounded-xl md:group-hover:-translate-y-1 md:group-hover:shadow-2xl lg:border lg:border-gray-800 lg:hover:border-gray-700 lg:hover:bg-gray-800/50">
           <img
             alt={`${description} image`}
             class="object-cover object-top w-full h-56 transition duration-500 sm:h-full md:scale-110 md:group-hover:scale-105"
@@ -45,21 +39,16 @@ const PROJECTS = [
           <ul class="flex flex-row mb-2 gap-x-2">
             {tags.map((tag) => (
               <li>
-                <span
-                  class={`flex gap-x-2 rounded-full text-xs ${tag.class} py-1 px-2 `}
-                >
-                  <tag.icon class="size-4" />
-                  {tag.name}
-                </span>
+                <TagPill tag={tag} />
               </li>
             ))}
           </ul>
 
-          <div class="mt-2 text-gray-400 text-justify">{description}</div>
+          <div class="mt-2 text-gray-400 text-pretty">{description}</div>
           <footer class="flex items-end justify-start mt-4 gap-x-4">
             {github && (
               <LinkButton href={github}>
-                <GitHubIcon class="size-6" />
+                <GitHubIcon class="size-6 fill-black" />
                 Code
               </LinkButton>
             )}

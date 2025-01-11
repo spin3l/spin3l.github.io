@@ -1,12 +1,14 @@
 ---
+import TAGS from "../constants/tags";
 import ExperienceItem from "./ExperienceItem.astro";
 
 const EXPERIENCE = [
   {
-    date: "Actualidad ...",
-    company: "Universitat de Lleida (UdL)",
-    title: "Data Scientist",
+    date: "Actualidad",
+    company: "Universitat de Lleida",
+    title: "Personal Tècnic",
     description: "",
+    tags: [],
   },
   {
     date: "Noviembre - Diciembre 2024",
@@ -14,20 +16,23 @@ const EXPERIENCE = [
     title: "Junior Software Developer",
     description:
       "Desarrollo full-stack de aplicaciones del sector de la Administración electrónica.",
+    tags: [TAGS.ANGULAR, TAGS.JAVA, TAGS.SPRING],
   },
   {
     date: "Marzo - Julio 2024",
     company: "GFT IT Consulting S.L.U.",
     title: "Data Scientist Intern",
     description:
-      "Participación en proyectos de Natural Language Processing y Computer Vision, además de preparación de datasets y desarrollo de demos.",
+      "Participación en proyectos de Natural Language Processing y Computer Vision, además de preparación de datasets y desarrollo de demostraciones técnicas.",
+    tags: [TAGS.PYTHON, TAGS.PYTORCH, TAGS.CVAT],
   },
   {
     date: "Junio - Diciembre 2023",
-    company: "Universitat de Lleida (UdL)",
+    company: "Universitat de Lleida",
     title: "Personal Tècnic",
     description:
       "Diseño y desarrollo de aplicaciones, procesamiento de datos y entrenamiento de modelos para el análisis de imágenes hiperespectrales del sector agroalimentario.",
+    tags: [TAGS.PYTHON, TAGS.SKLEARN, TAGS.TKINTER],
   },
 ];
 ---

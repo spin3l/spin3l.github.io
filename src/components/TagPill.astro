@@ -1,0 +1,16 @@
+---
+interface Props {
+  tag: {
+    name: string;
+    class: string;
+    icon?: any;
+  };
+}
+
+const { tag } = Astro.props;
+---
+
+<span class={`flex gap-x-2 rounded-full text-xs ${tag.class} py-1 px-2 `}>
+  {tag.icon && <tag.icon class="size-4" />}
+  <div style="text-shadow: 1px 1px 2px black">{tag.name}</div>
+</span>
