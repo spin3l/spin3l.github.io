@@ -20,11 +20,8 @@ jobs:
       - name: Install and build site using Astro
         uses: withastro/action@v3
 
-      - name: List build output
-        run: ls -R ./dist
-
       - name: Upload GitHub Pages artifact
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v3
         with:
           name: github-pages
           path: ./dist # Default Astro output directory
