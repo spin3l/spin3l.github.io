@@ -2,7 +2,9 @@ import AngularIcon from "../components/icons/AngularIcon.astro";
 import DjangoIcon from "../components/icons/DjangoIcon.astro";
 import JavaIcon from "../components/icons/JavaIcon.astro";
 import PythonIcon from "../components/icons/PythonIcon.astro";
+import ReactIcon from "../components/icons/ReactIcon.astro";
 import SpringIcon from "../components/icons/SpringIcon.astro";
+import TypescriptIcon from "../components/icons/TypescriptIcon.astro";
 
 const TAGS = {
   DJANGO: {
@@ -19,6 +21,11 @@ const TAGS = {
     name: "Java",
     class: "bg-[#ADD8E6] text-white",
     icon: JavaIcon,
+  },
+  TYPESCRIPT: {
+    name: "TypeScript",
+    class: "bg-[#007ACC] text-white",
+    icon: TypescriptIcon,
   },
   ANGULAR: {
     name: "AngularJS",
@@ -54,6 +61,16 @@ const TAGS = {
     name: "Bootstrap",
     class: "bg-[#7952B3] text-white",
     icon: undefined,
+  },
+  REACT: {
+    name: "React",
+    class: "bg-[#222] text-white",
+    icon: ReactIcon,
+  },
+  DRF: {
+    name: "Django Rest Framework",
+    class: "bg-[#3A6F22] text-white",
+    icon: DjangoIcon,
   },
 };
 

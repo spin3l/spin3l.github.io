@@ -16,51 +16,64 @@ const PROJECTS = [
     image: "/projects/view-and-review.webp",
     tags: [TAGS.DJANGO, TAGS.BOOTSTRAP],
   },
+  {
+    title: "2Chess",
+    description: "PWA de ajedrez local en el navegador.",
+    link: "https://gei-duo.github.io/2chess/",
+    github: "https://github.com/gei-duo/2chess",
+    image: "/projects/2chess.jpg",
+    tags: [TAGS.TYPESCRIPT, TAGS.REACT],
+  },
 ];
 ---
 
-{
-  PROJECTS.map(({ title, description, link, github, image, tags }) => (
-    <article class="flex flex-col space-x-0 space-y-8 group md:flex-row md:space-x-8 md:space-y-0 shadow-sm">
-      <div class="w-full md:w-1/2 cursor-pointer">
-        <div class="relative flex flex-col items-center col-span-6 row-span-5 gap-8 transition duration-200 ease-in-out transform shadow-xl overflow-clip rounded-xl sm:rounded-xl md:group-hover:-translate-y-1 md:group-hover:shadow-2xl lg:border lg:border-gray-800 lg:hover:border-gray-700 lg:hover:bg-gray-800/50">
-          <img
-            alt={`${description} image`}
-            class="object-cover object-top w-full h-56 transition duration-500 sm:h-full md:scale-110 md:group-hover:scale-105"
-            loading="lazy"
-            src={image}
-          />
+<div class="flex flex-col gap-y-8">
+  {
+    PROJECTS.map(({ title, description, link, github, image, tags }) => (
+      <article class="flex flex-col space-x-0 space-y-8 group items-center md:flex-row md:space-x-8 md:space-y-0 shadow-sm">
+        <div class="w-full md:w-1/2 cursor-pointer">
+          <div
+            class="relative flex flex-col items-center col-span-6 row-span-5 gap-8 transition duration-200 ease-in-out transform shadow-xl overflow-clip rounded-xl sm:rounded-xl md:group-hover:-translate-y-1 md:group-hover:shadow-2xl lg:border lg:border-gray-800 lg:hover:border-gray-700 lg:hover:bg-gray-800/50"
+            onclick={`window.open(${link}, _blank)`}
+          >
+            <img
+              alt={`${description} image`}
+              class="object-cover object-center w-full aspect-square transition duration-500 md:scale-110 md:group-hover:scale-105"
+              loading="lazy"
+              src={image}
+            />
+          </div>
         </div>
-      </div>
 
-      <div class="w-full md:w-1/2 md:max-w-lg">
-        <h3 class="text-2xl font-bold text-yellow-100/90">{title}</h3>
-        <div class="flex flex-wrap mt-2">
-          <ul class="flex flex-row mb-2 gap-x-2">
-            {tags.map((tag) => (
-              <li>
-                <TagPill tag={tag} />
-              </li>
-            ))}
-          </ul>
+        <div class="w-full md:w-1/2 md:max-w-lg">
+          <h3 class="text-2xl font-bold text-yellow-100/90">{title}</h3>
+          <div class="flex flex-wrap mt-2">
+            <ul class="flex flex-row mb-2 gap-x-2">
+              {tags.map((tag) => (
+                <li>
+                  <TagPill tag={tag} />
+                </li>
+              ))}
+            </ul>
 
-          <div class="mt-2 text-gray-400 text-pretty">{description}</div>
-          <footer class="flex items-end justify-start mt-4 gap-x-4">
-            {github && (
-              <LinkButton href={github}>
-                <GitHubIcon class="size-6 fill-black" />
-                Code
-              </LinkButton>
-            )}
-            {link && (
-              <LinkButton href={link}>
-                <LinkIcon class="size-4" />
-                Preview
-              </LinkButton>
-            )}
-          </footer>
+            <div class="mt-2 text-gray-400 text-pretty">{description}</div>
+            <footer class="flex items-end justify-start mt-4 gap-x-4">
+              {github && (
+                <LinkButton href={github}>
+                  <GitHubIcon class="size-6 fill-black hover:fill-white" />
+                  Code
+                </LinkButton>
+              )}
+              {link && (
+                <LinkButton href={link}>
+                  <LinkIcon class="size-4" />
+                  Preview
+                </LinkButton>
+              )}
+            </footer>
+          </div>
         </div>
-      </div>
-    </article>
-  ))
-}
+      </article>
+    ))
+  }
+</div>
