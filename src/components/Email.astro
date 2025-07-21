@@ -1,0 +1,15 @@
+---
+import { CopyClipboard } from "./CopyClipboard";
+import MailIcon from "./icons/MailIcon.astro";
+
+interface Props {}
+---
+
+<div
+  class="rounded-full border border-white/10 flex items-center gap-x-4
+  py-1 px-2 lg:py-2 lg:px-4
+  text-xs lg:text-base justify-center bg-white/5"
+>
+  <MailIcon class="size-6" />
+  <CopyClipboard client:load>dev.christianlopezgarcia@gmail.com</CopyClipboard>
+</div>
