@@ -31,7 +31,7 @@ export const CopyClipboard = ({
   };
 
   return (
-    <div className="flex flex-wrap gap-2 items-center justify-center ">
+    <div className="flex flex-wrap gap-4 items-center justify-center ">
       <pre {...props} ref={snippetRef} class="text-lg  md:text-xl">
         {children}
       </pre>
