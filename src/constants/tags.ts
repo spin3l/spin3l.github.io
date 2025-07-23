@@ -19,7 +19,7 @@ const TAGS = {
   },
   JAVA: {
     name: "Java",
-    class: "bg-[#ADD8E6] text-white",
+    class: "bg-[#d6dba4] text-white",
     icon: JavaIcon,
   },
   TYPESCRIPT: {
