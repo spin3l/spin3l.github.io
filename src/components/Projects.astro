@@ -8,6 +8,14 @@ import TagPill from "./TagPill.astro";
 
 const PROJECTS = [
   {
+    title: "2Chess",
+    description: "Ajedrez local para el navegador y el dispositivo móvil.",
+    link: "https://gei-duo.github.io/2chess/",
+    github: "https://github.com/gei-duo/2chess",
+    image: "/projects/2chess.jpg",
+    tags: [TAGS.TYPESCRIPT, TAGS.REACT],
+  },
+  {
     title: "View&Review",
     description:
       "Aplicación web para ver las novedades cinematográficas y poder reseñar tus películas favoritas.",
@@ -16,31 +24,23 @@ const PROJECTS = [
     image: "/projects/view-and-review.webp",
     tags: [TAGS.DJANGO, TAGS.BOOTSTRAP],
   },
-  {
-    title: "2Chess",
-    description: "PWA de ajedrez local en el navegador.",
-    link: "https://gei-duo.github.io/2chess/",
-    github: "https://github.com/gei-duo/2chess",
-    image: "/projects/2chess.jpg",
-    tags: [TAGS.TYPESCRIPT, TAGS.REACT],
-  },
 ];
 ---
 
 <div class="flex flex-col gap-y-8">
   {
     PROJECTS.map(({ title, description, link, github, image, tags }) => (
-      <article class="flex flex-col space-x-0 space-y-8 group items-center md:flex-row md:space-x-8 md:space-y-0 shadow-sm">
+      <article class="group flex md:flex-row flex-col items-center space-x-0 md:space-x-8 space-y-8 md:space-y-0 shadow-sm">
         <div class="w-full md:w-1/2 cursor-pointer">
           <a
-            class="relative flex flex-col items-center col-span-6 row-span-5 gap-8 transition duration-200 ease-in-out transform shadow-xl overflow-clip rounded-xl sm:rounded-xl md:group-hover:-translate-y-1 md:group-hover:shadow-2xl lg:border lg:border-gray-800 lg:hover:border-gray-700 lg:hover:bg-gray-800/50"
+            class="relative flex flex-col items-center gap-8 col-span-6 row-span-5 lg:hover:bg-gray-800/50 shadow-xl md:group-hover:shadow-2xl lg:border lg:border-gray-800 lg:hover:border-gray-700 rounded-xl sm:rounded-xl overflow-clip transition md:group-hover:-translate-y-1 duration-200 ease-in-out transform"
             href={link}
             target="_blank"
             rel="noopener noreferrer"
           >
             <img
               alt={`${description} image`}
-              class="object-cover object-center w-full aspect-square transition duration-500 md:scale-110 md:group-hover:scale-105"
+              class="w-full object-center object-cover aspect-square md:group-hover:scale-105 md:scale-110 transition duration-500"
               loading="lazy"
               src={image}
             />
@@ -48,9 +48,9 @@ const PROJECTS = [
         </div>
 
         <div class="w-full md:w-1/2 md:max-w-lg">
-          <h3 class="text-2xl font-bold text-yellow-100/90">{title}</h3>
+          <h3 class="font-bold text-yellow-100/90 text-2xl">{title}</h3>
           <div class="flex flex-wrap mt-2">
-            <ul class="flex flex-row mb-2 gap-x-2">
+            <ul class="flex flex-row gap-x-2 mb-2">
               {tags.map((tag) => (
                 <li>
                   <TagPill tag={tag} />
@@ -59,7 +59,7 @@ const PROJECTS = [
             </ul>
 
             <div class="mt-2 text-gray-400 text-pretty">{description}</div>
-            <footer class="flex items-end justify-start mt-4 gap-x-4">
+            <footer class="flex justify-start items-end gap-x-4 mt-4">
               {github && (
                 <LinkButton href={github}>
                   <GitHubIcon class="size-6" />

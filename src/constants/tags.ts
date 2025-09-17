@@ -1,9 +1,12 @@
 import AngularIcon from "../components/icons/AngularIcon.astro";
+import Css3Icon from "../components/icons/Css3Icon.astro";
 import DjangoIcon from "../components/icons/DjangoIcon.astro";
+import Html5Icon from "../components/icons/Html5Icon.astro";
 import JavaIcon from "../components/icons/JavaIcon.astro";
 import PythonIcon from "../components/icons/PythonIcon.astro";
 import ReactIcon from "../components/icons/ReactIcon.astro";
 import SpringIcon from "../components/icons/SpringIcon.astro";
+import TailwindIcon from "../components/icons/TailwindIcon.astro";
 import TypescriptIcon from "../components/icons/TypescriptIcon.astro";
 
 const TAGS = {
@@ -19,13 +22,28 @@ const TAGS = {
   },
   JAVA: {
     name: "Java",
-    class: "bg-[#d6dba4] text-white",
+    class: "bg-[#204080] text-white", // improved contrast for readability
     icon: JavaIcon,
   },
   TYPESCRIPT: {
     name: "TypeScript",
     class: "bg-[#007ACC] text-white",
     icon: TypescriptIcon,
+  },
+  HTML: {
+    name: "HTML5",
+    class: "bg-[#E44D26] text-white",
+    icon: Html5Icon,
+  },
+  CSS: {
+    name: "CSS3",
+    class: "bg-[#264de4] text-white",
+    icon: Css3Icon,
+  },
+  TAILWIND: {
+    name: "TailwindCSS",
+    class: "bg-[#1e293b] text-white",
+    icon: TailwindIcon,
   },
   ANGULAR: {
     name: "AngularJS",
