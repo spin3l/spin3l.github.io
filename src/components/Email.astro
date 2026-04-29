@@ -2,14 +2,18 @@
 import { CopyClipboard } from "./CopyClipboard";
 import MailIcon from "./icons/MailIcon.astro";
 
-interface Props {}
+interface Props {
+  email: string;
+}
+
+const { email } = Astro.props;
 ---
 
-<div
-  class="flex items-center gap-x-4
-  py-1 px-2 lg:py-2 lg:px-4
-  text-xs lg:text-base justify-center"
->
-  <MailIcon class="size-6 hidden sm:flex" />
-  <CopyClipboard client:load>dev.christianlopezgarcia@gmail.com</CopyClipboard>
+<div class="items-center w-full cursor-pointer">
+  <div
+    class="flex justify-center items-center gap-x-4 px-2 lg:px-4 py-1 lg:py-2 text-xs lg:text-base"
+  >
+    <MailIcon class="hidden sm:flex size-6" />
+    <CopyClipboard client:load>{email}</CopyClipboard>
+  </div>
 </div>

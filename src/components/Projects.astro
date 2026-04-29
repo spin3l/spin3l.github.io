@@ -5,6 +5,7 @@ import LinkButton from "./LinkButton.astro";
 
 import TAGS from "../constants/tags.ts";
 import TagPill from "./TagPill.astro";
+import ButtonFooter from "./ButtonFooter.astro";
 
 const PROJECTS = [
   {
@@ -59,7 +60,7 @@ const PROJECTS = [
             </ul>
 
             <div class="mt-2 text-gray-400 text-pretty">{description}</div>
-            <footer class="flex justify-start items-end gap-x-4 mt-4">
+            <ButtonFooter>
               {github && (
                 <LinkButton href={github}>
                   <GitHubIcon class="size-6" />
@@ -72,7 +73,7 @@ const PROJECTS = [
                   Preview
                 </LinkButton>
               )}
-            </footer>
+            </ButtonFooter>
           </div>
         </div>
       </article>

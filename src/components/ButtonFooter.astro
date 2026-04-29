@@ -1,0 +1,7 @@
+---
+const { class: className } = Astro.props;
+---
+
+<footer class=`flex justify-start items-end gap-x-4 mt-4 ${className}`>
+  <slot />
+</footer>

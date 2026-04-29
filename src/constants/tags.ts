@@ -1,6 +1,7 @@
 import AngularIcon from "../components/icons/AngularIcon.astro";
 import Css3Icon from "../components/icons/Css3Icon.astro";
 import DjangoIcon from "../components/icons/DjangoIcon.astro";
+import FastAPIIcon from "../components/icons/FastAPIIcon.astro";
 import Html5Icon from "../components/icons/Html5Icon.astro";
 import JavaIcon from "../components/icons/JavaIcon.astro";
 import PythonIcon from "../components/icons/PythonIcon.astro";
@@ -9,7 +10,18 @@ import SpringIcon from "../components/icons/SpringIcon.astro";
 import TailwindIcon from "../components/icons/TailwindIcon.astro";
 import TypescriptIcon from "../components/icons/TypescriptIcon.astro";
 
-const TAGS = {
+export interface Tag {
+  name: string;
+  class: string;
+  icon: any;
+}
+
+const TAGS: Record<string, Tag> = {
+  FASTAPI: {
+    name: "FastAPI",
+    class: "bg-[#5C143D] text-white",
+    icon: FastAPIIcon,
+  },
   DJANGO: {
     name: "Django",
     class: "bg-[#145A32] text-white",

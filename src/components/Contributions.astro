@@ -1,0 +1,83 @@
+---
+import ButtonFooter from "./ButtonFooter.astro";
+import GitHubIcon from "./icons/GitHubIcon.astro";
+import LinkIcon from "./icons/LinkIcon.astro";
+import LinkButton from "./LinkButton.astro";
+import TagPill from "./TagPill.astro";
+
+import TAGS, { type Tag } from "../constants/tags";
+
+interface Props {}
+
+interface Contribution {
+  projectName: string;
+  description: string;
+  repositoryUrl: string;
+  tags: Tag[];
+  packageUrl?: string;
+}
+
+const CONTRIBUTIONS: Array<Contribution> = [
+  {
+    projectName: "FastRAG",
+    description:
+      "CLI tool that leverages the execution of RAG generation and testing workflows using declarative configuration files. Auto-populates vectorstore with generated chunks, provides a serving API with automatic monitoring and dashboard.",
+    repositoryUrl: "https://github.com/agrospai/chatbot-tools",
+    packageUrl: "https://pypi.org/project/fastrag-cli/",
+    tags: [TAGS.PYTHON, TAGS.FASTAPI],
+  },
+  {
+    projectName: "ocean-runner",
+    description:
+      "Ocean Runner is a Python package that eases algorithm creation in the scope of OceanProtocol.",
+    repositoryUrl: "https://github.com/agrospai/ocean-runner",
+    packageUrl: "https://pypi.org/project/ocean-runner/",
+    tags: [TAGS.PYTHON],
+  },
+  {
+    projectName: "oceanprotocol-job-details",
+    description:
+      "OceanProtocol Job Details is a Python package to get details from within OceanProtocol jobs.",
+    repositoryUrl: "https://pypi.org/project/oceanprotocol-job-details/",
+    packageUrl: "https://pypi.org/project/oceanprotocol-job-details/",
+    tags: [TAGS.PYTHON],
+  },
+];
+---
+
+<div class="gap-4 grid grid-cols-2 text-pretty">
+  {
+    CONTRIBUTIONS.map(
+      ({ projectName, description, repositoryUrl, packageUrl, tags }) => (
+        <article class="flex flex-col gap-2 bg-gray-800/40 p-4 rounded-lg">
+          <h3 class="font-bold text-yellow-100/90 text-2xl">{projectName}</h3>
+          {tags && (
+            <ul class="flex flex-wrap items-center gap-2">
+              {tags.map((tag) => (
+                <TagPill tag={tag} />
+              ))}
+            </ul>
+          )}
+          <div class="mx-2 mt-2 h-full text-gray-400 text-pretty">
+            {description}
+          </div>
+
+          <ButtonFooter class="justify-end">
+            {repositoryUrl && (
+              <LinkButton href={repositoryUrl}>
+                <GitHubIcon class="size-4" />
+                Repository
+              </LinkButton>
+            )}
+            {packageUrl && (
+              <LinkButton href={packageUrl}>
+                <LinkIcon class="size-4" />
+                Package
+              </LinkButton>
+            )}
+          </ButtonFooter>
+        </article>
+      ),
+    )
+  }
+</div>

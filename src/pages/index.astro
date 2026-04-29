@@ -1,4 +1,5 @@
 ---
+import Contributions from "../components/Contributions.astro";
 import Experience from "../components/Experience.astro";
 import Hero from "../components/Hero.astro";
 import CodeIcon from "../components/icons/CodeIcon.astro";
@@ -30,6 +31,11 @@ import Layout from "../layouts/Layout.astro";
           <CodeIcon class="size-10" />Proyectos
         </TitleSection>
         <Projects />
+      </SectionContainer>
+
+      <SectionContainer id="open-source">
+        <TitleSection>Open Source</TitleSection>
+        <Contributions />
       </SectionContainer>
     </div>
   </main>

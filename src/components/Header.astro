@@ -16,6 +16,11 @@ const navItems = [
   //   url: "/#sobre-mi",
   // },
   {
+    title: "Open Source",
+    label: "open-source",
+    url: "/#open-source",
+  },
+  {
     title: "Contacto",
     label: "contacto",
     url: "mailto:dev.christianlopezgarcia@gmail.com",
@@ -24,15 +29,15 @@ const navItems = [
 ---
 
 <header
-  class="fixed top-0 z-10 flex justify-center items-center w-full mx-auto mt-2"
+  class="top-0 z-10 fixed flex justify-center items-center mx-auto mt-2 w-full"
 >
   <nav
-    class="flex px-3 text-sm font-medium rounded-full text-gray-200 justify-center items-center"
+    class="flex justify-center items-center px-3 rounded-full font-medium text-gray-200 text-sm"
   >
     {
       navItems.map((link) => (
         <a
-          class="relative block px-2 py-2 transition hover:text-blue-500"
+          class="block relative px-2 py-2 hover:text-blue-500 transition"
           aria-label={link.label}
           href={link.url}
         >
