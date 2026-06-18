@@ -5,13 +5,18 @@ import LinkIcon from "./icons/LinkIcon.astro";
 import LinkButton from "./LinkButton.astro";
 import TagPill from "./TagPill.astro";
 
+import type { ui } from "@/i18n/ui";
+import { getLangFromUrl, useTranslations } from "@/i18n/utils";
 import TAGS, { type Tag } from "../constants/tags";
 
 interface Props {}
 
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
 interface Contribution {
   projectName: string;
-  description: string;
+  description: keyof typeof ui.en;
   repositoryUrl: string;
   tags: Tag[];
   packageUrl?: string;
@@ -20,24 +25,21 @@ interface Contribution {
 const CONTRIBUTIONS: Array<Contribution> = [
   {
     projectName: "FastRAG",
-    description:
-      "CLI tool that leverages the execution of RAG generation and testing workflows using declarative configuration files. Auto-populates vectorstore with generated chunks, provides a serving API with automatic monitoring and dashboard.",
+    description: "section.contributions.fastrag.description",
     repositoryUrl: "https://github.com/agrospai/chatbot-tools",
     packageUrl: "https://pypi.org/project/fastrag-cli/",
     tags: [TAGS.PYTHON, TAGS.FASTAPI],
   },
   {
     projectName: "ocean-runner",
-    description:
-      "Ocean Runner is a Python package that eases algorithm creation in the scope of OceanProtocol.",
+    description: "section.contributions.ocean-runner.description",
     repositoryUrl: "https://github.com/agrospai/ocean-runner",
     packageUrl: "https://pypi.org/project/ocean-runner/",
     tags: [TAGS.PYTHON],
   },
   {
     projectName: "oceanprotocol-job-details",
-    description:
-      "OceanProtocol Job Details is a Python package to get details from within OceanProtocol jobs.",
+    description: "section.contributions.oceanprotocol-job-details.description",
     repositoryUrl: "https://pypi.org/project/oceanprotocol-job-details/",
     packageUrl: "https://pypi.org/project/oceanprotocol-job-details/",
     tags: [TAGS.PYTHON],
@@ -45,34 +47,46 @@ const CONTRIBUTIONS: Array<Contribution> = [
 ];
 ---
 
-<div class="gap-4 grid grid-cols-2 text-pretty">
+<div class="gap-6 grid grid-cols-1 md:grid-cols-2 text-pretty">
   {
     CONTRIBUTIONS.map(
       ({ projectName, description, repositoryUrl, packageUrl, tags }) => (
-        <article class="flex flex-col gap-2 bg-gray-800/40 p-4 rounded-lg">
-          <h3 class="font-bold text-yellow-100/90 text-2xl">{projectName}</h3>
-          {tags && (
-            <ul class="flex flex-wrap items-center gap-2">
-              {tags.map((tag) => (
-                <TagPill tag={tag} />
-              ))}
-            </ul>
-          )}
-          <div class="mx-2 mt-2 h-full text-gray-400 text-pretty">
-            {description}
+        <article class="group flex flex-col justify-between gap-5 bg-gradient-to-br from-gray-50 hover:from-white dark:from-gray-800/50 dark:hover:from-gray-800/70 to-gray-100/60 hover:to-gray-100/90 dark:to-gray-900/30 shadow-md hover:shadow-xl p-6 border border-gray-200/80 hover:border-blue-500/30 dark:border-gray-700/40 dark:hover:border-yellow-500/20 rounded-xl transition-all duration-300 /* Light Mode Background & Borders */ /* Dark Mode Background & Borders */">
+          <div class="flex flex-col gap-3">
+            <h3 class="font-bold text-gray-800 dark:group-hover:text-yellow-100/90 dark:text-gray-100 group-hover:text-blue-600 text-2xl tracking-tight transition-colors">
+              {projectName}
+            </h3>
+
+            {tags && (
+              <ul class="flex flex-wrap items-center gap-1.5">
+                {tags.map((tag) => (
+                  <TagPill tag={tag} />
+                ))}
+              </ul>
+            )}
+
+            <p class="mt-2 text-gray-600 dark:text-gray-400 text-sm text-pretty leading-relaxed">
+              {t(description)}
+            </p>
           </div>
 
-          <ButtonFooter class="justify-end">
+          <ButtonFooter class="justify-end gap-3 pt-2">
             {repositoryUrl && (
-              <LinkButton href={repositoryUrl}>
+              <LinkButton
+                href={repositoryUrl}
+                class="hover:text-blue-600 dark:hover:text-yellow-100 transition-colors"
+              >
                 <GitHubIcon class="size-4" />
-                Repository
+                {t("actions.repository")}
               </LinkButton>
             )}
             {packageUrl && (
-              <LinkButton href={packageUrl}>
+              <LinkButton
+                href={packageUrl}
+                class="hover:text-blue-600 dark:hover:text-yellow-100 transition-colors"
+              >
                 <LinkIcon class="size-4" />
-                Package
+                {t("actions.package")}
               </LinkButton>
             )}
           </ButtonFooter>

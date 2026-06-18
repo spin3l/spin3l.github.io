@@ -1,0 +1,102 @@
+---
+import ChevronDown from "@/components/icons/ChevronDown.astro";
+import { languages } from "@/i18n/ui";
+import { getLangFromUrl } from "@/i18n/utils";
+import LanguageIcon from "./icons/LanguageIcon.astro";
+
+const currentLang = getLangFromUrl(Astro.url);
+---
+
+<div class="inline-block relative text-left" id="lang-menu-wrapper">
+  <!-- Trigger Button -->
+  <button
+    id="lang-menu-button"
+    type="button"
+    aria-haspopup="true"
+    aria-expanded="false"
+    class="flex items-center gap-x-1.5 px-2 py-1 rounded-full focus:outline-none font-medium text-gray-600 hover:text-blue-500 dark:hover:text-yellow-400 dark:text-gray-200 text-sm transition-colors duration-200 cursor-pointer"
+  >
+    <LanguageIcon class="size-4 shrink-0" />
+    <span class="uppercase">{currentLang}</span>
+    <ChevronDown
+      class="size-3 text-gray-400 dark:text-gray-500 transition-transform duration-200"
+      id="lang-chevron"
+    />
+  </button>
+
+  <!-- Dropdown Menu List -->
+  <div
+    id="lang-menu-dropdown"
+    class="invisible right-0 z-50 absolute bg-white/90 dark:bg-gray-950/90 opacity-0 shadow-xl backdrop-blur-md mt-2 p-1 border border-gray-200/80 dark:border-white/10 rounded-xl w-32 scale-95 origin-top-right transition-all duration-200 ease-out /* Light Mode Dropdown Frame */ /* Dark Mode Dropdown Frame */"
+    role="menu"
+    aria-orientation="vertical"
+  >
+    {
+      Object.entries(languages).map(([code, label]) => {
+        const isActive = code === currentLang;
+        return (
+          <a
+            href={`/${code}/`}
+            class:list={[
+              "block px-3 py-2 text-sm rounded-lg transition-all duration-150 cursor-pointer font-medium",
+              isActive
+                ? "bg-blue-500/10 text-blue-600 dark:bg-yellow-400/10 dark:text-yellow-400"
+                : "text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white",
+            ]}
+            role="menuitem"
+          >
+            {label}
+          </a>
+        );
+      })
+    }
+  </div>
+</div>
+
+<script>
+  const setupLanguagePicker = () => {
+    const wrapper = document.getElementById("lang-menu-wrapper");
+    const button = document.getElementById("lang-menu-button");
+    const dropdown = document.getElementById("lang-menu-dropdown");
+    const chevron = document.getElementById("lang-chevron");
+
+    if (!button || !dropdown || !chevron) return;
+
+    const toggleMenu = (show: boolean) => {
+      if (show) {
+        button.setAttribute("aria-expanded", "true");
+        dropdown.classList.remove("invisible", "opacity-0", "scale-95");
+        dropdown.classList.add("visible", "opacity-100", "scale-100");
+        chevron.style.transform = "rotate(180deg)";
+      } else {
+        button.setAttribute("aria-expanded", "false");
+        dropdown.classList.remove("visible", "opacity-100", "scale-100");
+        dropdown.classList.add("invisible", "opacity-0", "scale-95");
+        chevron.style.transform = "rotate(0deg)";
+      }
+    };
+
+    // Toggle on trigger button click
+    button.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const isExpanded = button.getAttribute("aria-expanded") === "true";
+      toggleMenu(!isExpanded);
+    });
+
+    // Close when clicking outside the menu component
+    document.addEventListener("click", (e) => {
+      if (wrapper && !wrapper.contains(e.target as Node)) {
+        toggleMenu(false);
+      }
+    });
+
+    // Close on escape key press
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") toggleMenu(false);
+    });
+  };
+
+  // Safe binding across View Transitions swapping
+  document.addEventListener("DOMContentLoaded", setupLanguagePicker);
+  document.addEventListener("astro:after-swap", setupLanguagePicker);
+</script>

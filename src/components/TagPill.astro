@@ -1,16 +1,16 @@
 ---
+import type { Tag } from "@/constants/tags";
+
 interface Props {
-  tag: {
-    name: string;
-    class: string;
-    icon?: any;
-  };
+  tag: Tag;
 }
 
 const { tag } = Astro.props;
 ---
 
-<span class={`flex gap-x-3 rounded-full text-xs ${tag.class} py-1 px-4 `}>
+<span
+  class={`flex gap-x-3 rounded-full text-xs ${tag.class} py-1 px-4 transition-colors duration-300`}
+>
   {tag.icon && <tag.icon class="size-4" />}
   <pre class="font-semibold">{tag.name}</pre>
 </span>

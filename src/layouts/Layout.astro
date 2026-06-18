@@ -1,8 +1,9 @@
 ---
-import { ClientRouter } from "astro:transitions";
-import Footer from "../components/Footer.astro";
-import Header from "../components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import Header from "@/components/Header.astro";
+import { getLangFromUrl } from "@/i18n/utils";
 import "@fontsource-variable/onest";
+import { ClientRouter } from "astro:transitions";
 
 interface Props {
   title: string;
@@ -10,10 +11,11 @@ interface Props {
 }
 
 const { title, description } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -23,9 +25,9 @@ const { title, description } = Astro.props;
     <title>{title}</title>
     <ClientRouter />
   </head>
-  <body class="w-full relative">
+  <body class="relative w-full transition-colors duration-300">
     <div
-      class="absolute top-0 bottom-0 z-[-2] min-h-screen w-screen bg-[radial-gradient(125%_125%_at_50%_10%,#000_40%,#63e_100%)]"
+      class="top-0 bottom-0 z-[-2] absolute bg-[radial-gradient(125%_125%_at_50%_10%,#f0f4ff_40%,#c7d2fe_100%)] dark:bg-[radial-gradient(125%_125%_at_50%_10%,#000_40%,#63e_100%)] w-screen min-h-screen transition-all duration-500"
     >
     </div>
     <Header />

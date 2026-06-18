@@ -1,42 +1,58 @@
 ---
+import type { Tag } from "@/constants/tags";
+import type { ui } from "@/i18n/ui";
+import { getLangFromUrl, useTranslations } from "@/i18n/utils";
 import TagPill from "./TagPill.astro";
 
 interface Props {
-  title: string;
-  company: string;
-  description: string;
-  date: string;
-  tags: Array<{
-    name: string;
-    class: string;
-    icon?: any;
-  }>;
+  title: keyof typeof ui.en;
+  company: keyof typeof ui.en;
+  description: keyof typeof ui.en;
+  date: keyof typeof ui.en;
+  tags: Array<Tag>;
+  isLast: boolean;
 }
 
-const { title, company, description, date, tags } = Astro.props;
+const { title, company, description, date, tags, isLast = false } = Astro.props;
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
 <div
-  class="relative mx-12 pb-12 grid before:absolute before:left-[-35px] before:block before:h-full before:border-l-2 before:border-white/15 before:content-[''] md:grid-cols-5 md:gap-10 md:space-x-4]"
+  class:list={[
+    "before:block before:left-[-35px] before:absolute relative md:gap-10 grid md:grid-cols-5 mx-12 pb-12 before:border-l-2 before:content-[''] md:space-x-4",
+    // 1. Made the vertical line border theme-dependent
+    "before:border-gray-200 dark:before:border-white/15",
+    isLast ? "before:h-0" : "before:top-3 before:bottom-0",
+  ]}
 >
-  <div class="relative pb-12 md:col-span-2">
-    <div class="sticky top-0">
-      <span class="text-yellow-400 -left-[42px] absolute rounded-full text-5xl"
-        >&bull;</span
-      >
+  <div class="relative md:col-span-2 pb-12">
+    <div class="top-0 sticky">
+      <span
+        class="top-2.5 -left-[40px] absolute bg-yellow-500 dark:bg-yellow-400 rounded-full ring-[8px] ring-slate-100 dark:ring-gray-950 size-3"
+        aria-hidden="true"></span>
 
-      <h3 class="text-xl font-bold text-yellow-400">{title}</h3>
-      <h4 class="font-semibold text-xl text-white/90">
-        {company}
+      <h3 class="font-bold text-yellow-600 dark:text-yellow-400 text-xl">
+        {t(title)}
+      </h3>
+
+      <h4 class="font-semibold text-gray-800 dark:text-white/90 text-xl">
+        {t(company)}
       </h4>
-      <time class="p-0 m-0 text-sm text-white/80">{date}</time>
+      <time class="m-0 p-0 text-gray-500 dark:text-white/80 text-sm"
+        >{t(date)}</time
+      >
     </div>
   </div>
-  <div class="relative flex flex-col gap-2 pb-4 text-gray-300 md:col-span-3">
-    <div class="text-pretty leading-7">{description}</div>
+
+  <div
+    class="relative flex flex-col gap-2 md:col-span-3 pb-4 text-gray-600 dark:text-gray-300"
+  >
+    <div class="text-pretty leading-7">{t(description)}</div>
     {
       tags && (
-        <ul class="flex flex-wrap mb-2 gap-2 items-center">
+        <ul class="flex flex-wrap items-center gap-2 mb-2">
           {tags.map((tag) => (
             <TagPill tag={tag} />
           ))}

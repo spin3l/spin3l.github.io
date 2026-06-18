@@ -1,36 +1,48 @@
 ---
+import { getLangFromUrl, useTranslations } from "@/i18n/utils";
 import Email from "./Email.astro";
 import GitHubIcon from "./icons/GitHubIcon.astro";
 import LinkedInIcon from "./icons/LinkedInIcon.astro";
 import SocialPill from "./icons/SocialPill.astro";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
 <div class="flex gap-8 mb-4">
   <img
-    class="shadow-md shadow-white mb-2 lg:mb-4 rounded-full size-24 -4"
+    class="shadow-md dark:shadow-lg dark:shadow-purple-500/10 mb-2 lg:mb-4 border-2 border-gray-200 dark:border-white/20 rounded-full size-24 object-cover"
     src="pfp.jpeg"
     alt="spin3l photo"
-  /><a
-    class="flex justify-center items-center"
-    href="https://www.linkedin.com/in/christian-lopez-garcia02/"
-    target="_blank"
-    rel="noopener"
-  >
-  </a>
+  />
 </div>
+
 <h1
-  class="inline-block gap-x-4 pb-6 lg:pb-10 text-white text-2xl lg:text-4xl col"
+  class="inline-block gap-x-4 pb-6 lg:pb-10 text-gray-900 dark:text-white text-2xl lg:text-4xl"
 >
-  Hey, soy <span class="font-semibold text-purple-200/90"
-    >Christian López García</span
+  {t("section.hero.greet")}
+  <span class="font-bold text-purple-600 dark:text-purple-200/90"
+    >{t("me")},</span
   >
 </h1>
-<h2 class="max-w-[700px] text-xl lg:text-2xl text-pretty">
-  <span class="text-yellow-200/90"> Desarrollador Full-Stack</span> de
-  <span class="text-red-200/90">Lleida, España</span>.
-  <span class="opacity-85"
-    >Especializado en desarrollar aplicaciones con React y Python.</span
+
+<h2
+  class="max-w-[700px] text-gray-700 dark:text-gray-200 text-xl lg:text-2xl text-pretty"
+>
+  <span class="font-semibold text-yellow-600 dark:text-yellow-200/90">
+    {t("section.hero.role")}
+  </span>
+  {" "}
+  {t("section.hero.based")}
+  {" "}
+  <span class="font-semibold text-red-600 dark:text-red-200/90">
+    {t("section.hero.country")}.
+  </span>
+  <span
+    class="block mt-3 font-normal text-gray-500 dark:text-gray-400 text-base lg:text-lg"
   >
+    {t("section.hero.description")}
+  </span>
 </h2>
 
 <div class="flex flex-col gap-8">

@@ -1,0 +1,16 @@
+---
+import DownloadIcon from "@/components/icons/DownloadIcon.astro";
+import { getLangFromUrl, useTranslations } from "@/i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<a
+  href="/cv.pdf"
+  download="Christian_Lopez_CV.pdf"
+  class="flex gap-1 stroke-gray-600 hover:stroke-blue-500 dark:stroke-gray-200 hover:text-blue-500 transition-colors duration-300"
+>
+  <DownloadIcon class="fill-none size-4" />
+  {t("actions.download_cv") || "Download CV"}
+</a>

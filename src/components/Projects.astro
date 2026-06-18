@@ -3,14 +3,28 @@ import GitHubIcon from "./icons/GitHubIcon.astro";
 import LinkIcon from "./icons/LinkIcon.astro";
 import LinkButton from "./LinkButton.astro";
 
-import TAGS from "../constants/tags.ts";
-import TagPill from "./TagPill.astro";
+import type { ui } from "@/i18n/ui";
+import { getLangFromUrl, useTranslations } from "@/i18n/utils";
+import TAGS, { type Tag } from "../constants/tags.ts";
 import ButtonFooter from "./ButtonFooter.astro";
+import TagPill from "./TagPill.astro";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+type Project = {
+  title: string;
+  description: keyof typeof ui.en;
+  link: string;
+  github: string;
+  image: string;
+  tags: Array<Tag>;
+};
 
 const PROJECTS = [
   {
     title: "2Chess",
-    description: "Ajedrez local para el navegador y el dispositivo móvil.",
+    description: "section.projects.2chess.description",
     link: "https://gei-duo.github.io/2chess/",
     github: "https://github.com/gei-duo/2chess",
     image: "/projects/2chess.jpg",
@@ -19,28 +33,28 @@ const PROJECTS = [
   {
     title: "View&Review",
     description:
-      "Aplicación web para ver las novedades cinematográficas y poder reseñar tus películas favoritas.",
+      "section.projects.2chess.description.view-and-review.description",
     link: "https://view-and-review.onrender.com/",
     github: "https://github.com/GEI-WP/view-and-review",
     image: "/projects/view-and-review.webp",
     tags: [TAGS.DJANGO, TAGS.BOOTSTRAP],
   },
-];
+] satisfies Array<Project>;
 ---
 
-<div class="flex flex-col gap-y-8">
+<div class="flex flex-col gap-y-12">
   {
     PROJECTS.map(({ title, description, link, github, image, tags }) => (
       <article class="group flex md:flex-row flex-col items-center space-x-0 md:space-x-8 space-y-8 md:space-y-0 shadow-sm">
         <div class="w-full md:w-1/2 cursor-pointer">
           <a
-            class="relative flex flex-col items-center gap-8 col-span-6 row-span-5 lg:hover:bg-gray-800/50 shadow-xl md:group-hover:shadow-2xl lg:border lg:border-gray-800 lg:hover:border-gray-700 rounded-xl sm:rounded-xl overflow-clip transition md:group-hover:-translate-y-1 duration-200 ease-in-out transform"
+            class="relative flex flex-col items-center gap-8 col-span-6 row-span-5 lg:hover:bg-gray-100/50 dark:lg:hover:bg-gray-800/50 shadow-xl md:group-hover:shadow-2xl lg:border lg:border-gray-200 lg:hover:border-gray-300 dark:lg:border-gray-800 dark:lg:hover:border-gray-700 rounded-xl overflow-clip transition md:group-hover:-translate-y-1 duration-200 ease-in-out transform /* Light Mode Interactive Border/Bg */ /* Dark Mode Interactive Border/Bg */"
             href={link}
             target="_blank"
             rel="noopener noreferrer"
           >
             <img
-              alt={`${description} image`}
+              alt={`${t(description)} image`}
               class="w-full object-center object-cover aspect-square md:group-hover:scale-105 md:scale-110 transition duration-500"
               loading="lazy"
               src={image}
@@ -49,9 +63,12 @@ const PROJECTS = [
         </div>
 
         <div class="w-full md:w-1/2 md:max-w-lg">
-          <h3 class="font-bold text-yellow-100/90 text-2xl">{title}</h3>
+          <h3 class="font-bold text-gray-800 dark:text-yellow-100/90 text-2xl tracking-tight">
+            {title}
+          </h3>
           <div class="flex flex-wrap mt-2">
-            <ul class="flex flex-row gap-x-2 mb-2">
+            <ul class="flex flex-row flex-wrap gap-2 mb-2">
+              {" "}
               {tags.map((tag) => (
                 <li>
                   <TagPill tag={tag} />
@@ -59,18 +76,21 @@ const PROJECTS = [
               ))}
             </ul>
 
-            <div class="mt-2 text-gray-400 text-pretty">{description}</div>
+            <div class="mt-2 text-gray-600 dark:text-gray-400 text-pretty leading-relaxed">
+              {t(description)}
+            </div>
+
             <ButtonFooter>
               {github && (
                 <LinkButton href={github}>
                   <GitHubIcon class="size-6" />
-                  Code
+                  {t("actions.repository")}
                 </LinkButton>
               )}
               {link && (
                 <LinkButton href={link}>
                   <LinkIcon class="size-4" />
-                  Preview
+                  {t("actions.preview")}
                 </LinkButton>
               )}
             </ButtonFooter>

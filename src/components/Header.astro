@@ -1,54 +1,70 @@
 ---
-const navItems = [
+import LanguagePicker from "@/components/LanguagePicker.astro";
+import ThemePicker from "@/components/ThemePicker.astro";
+import { ui } from "@/i18n/ui";
+import { getLangFromUrl, useTranslations } from "@/i18n/utils";
+import CvDownload from "./CvDownload.astro";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+type NavItem = {
+  title: keyof typeof ui.en;
+  label: keyof typeof ui.en;
+  url?: string;
+};
+
+const navItems: Array<NavItem> = [
+  { title: "nav.experience", label: "nav.experience" },
+  { title: "nav.projects", label: "nav.projects" },
+  { title: "nav.open-source", label: "nav.open-source" },
   {
-    title: "Experiencia",
-    label: "experiencia",
-    url: "/#experiencia",
-  },
-  {
-    title: "Proyectos",
-    label: "proyectos",
-    url: "/#proyectos",
-  },
-  // {
-  //   title: "Sobre mí",
-  //   label: "sobre-mi",
-  //   url: "/#sobre-mi",
-  // },
-  {
-    title: "Open Source",
-    label: "open-source",
-    url: "/#open-source",
-  },
-  {
-    title: "Contacto",
-    label: "contacto",
+    title: "nav.contact",
+    label: "nav.contact",
     url: "mailto:dev.christianlopezgarcia@gmail.com",
   },
 ];
 ---
 
 <header
-  class="top-0 z-10 fixed flex justify-center items-center mx-auto mt-2 w-full"
+  class="top-0 z-50 fixed flex md:flex-row flex-col justify-center items-center gap-2 mx-auto mt-2 md:mt-3 px-4 w-full"
 >
+  <!-- Main Nav Bar Capsule -->
   <nav
-    class="flex justify-center items-center px-3 rounded-full font-medium text-gray-200 text-sm"
+    class="flex flex-wrap justify-center items-center gap-x-4 gap-y-1 px-4 py-1 md:py-0 rounded-full w-fit max-w-[calc(100vw-2rem)] font-medium text-gray-600 dark:text-gray-200 text-xs sm:text-sm"
   >
     {
-      navItems.map((link) => (
+      navItems.map(({ label, url, title }) => (
         <a
-          class="block relative px-2 py-2 hover:text-blue-500 transition"
-          aria-label={link.label}
-          href={link.url}
+          class="block relative py-1.5 md:py-2 hover:text-blue-500 dark:hover:text-yellow-400 whitespace-nowrap transition-colors duration-300"
+          aria-label={t(label)}
+          href={url ?? `#/${t(label)}`}
         >
-          {link.title}
+          {t(title)}
         </a>
       ))
     }
+
+    <!-- CV Button wrapped or adjusted cleanly -->
+    <div class="py-1 md:py-0 shrink-0">
+      <CvDownload class="scale-90 sm:scale-100" />
+    </div>
   </nav>
+
+  <!-- Right Utility Dock Capsule -->
+  <div
+    id="utility-dock"
+    class="flex justify-center items-center gap-x-3 md:gap-x-4 px-4 py-1.5 md:py-0 rounded-full shrink-0"
+  >
+    <LanguagePicker />
+    <ThemePicker
+      class="text-gray-600 hover:text-blue-500 dark:hover:text-yellow-400 dark:text-gray-200 transition-colors"
+    />
+  </div>
 </header>
 
 <script>
+  // Your existing IntersectionObserver logic remains pristine
   document.addEventListener("astro:page-load", () => {
     const sections = document.querySelectorAll("section");
     const navItems = document.querySelectorAll("header nav a");
@@ -77,7 +93,6 @@ const navItems = [
       observer.observe(section);
     });
 
-    // Cleanup function
     document.onvisibilitychange = () => {
       if (document.visibilityState === "hidden") {
         observer.disconnect();
@@ -91,22 +106,48 @@ const navItems = [
 </script>
 
 <style>
-  nav {
-    animation: nav-shadown 1s linear both;
+  /* Attach the scroll timeline animation to both elements */
+  nav,
+  #utility-dock {
+    animation: header-dock-scroll 1s linear both;
     animation-timeline: scroll();
-    animation-range: 0 100px;
+    animation-range: 0 80px;
   }
 
-  nav {
-    @apply bg-gray-900/90;
-  }
-
-  @keyframes nav-shadown {
+  /* Theme-dependent style states using modern CSS variables / nesting */
+  @keyframes header-dock-scroll {
     0% {
-      @apply bg-gray-900/0;
+      background-color: transparent;
+      box-shadow: none;
+      border: 1px solid transparent;
+      backdrop-filter: blur(0px);
     }
-    to {
-      @apply shadow-lg ring-1 backdrop-blur ring-white/10;
+    100% {
+      background-color: rgba(255, 255, 255, 0.75);
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+      backdrop-filter: blur(12px);
+    }
+  }
+
+  /* Override structural colors elegantly for Tailwind dark mode classes */
+  :global(.dark) nav,
+  :global(.dark) #utility-dock {
+    animation-name: header-dock-scroll-dark;
+  }
+
+  @keyframes header-dock-scroll-dark {
+    0% {
+      background-color: transparent;
+      box-shadow: none;
+      border: 1px solid transparent;
+      backdrop-filter: blur(0px);
+    }
+    100% {
+      background-color: rgba(17, 24, 39, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(12px);
     }
   }
 </style>

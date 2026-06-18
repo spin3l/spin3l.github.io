@@ -1,0 +1,107 @@
+<div
+  class="relative flex items-center gap-1 bg-gray-950/40 dark:bg-black/40 p-1 border border-white/5 rounded-full"
+>
+  <div
+    id="theme-indicator"
+    class="top-1 bottom-1 left-1 absolute bg-white/10 dark:bg-yellow-500/10 border border-white/10 rounded-full transition-all duration-300 ease-out pointer-events-none"
+  >
+  </div>
+
+  <button
+    data-theme-target="light"
+    class="z-10 relative flex justify-center items-center rounded-full focus:outline-none size-7 text-gray-400 hover:text-white transition-colors cursor-pointer"
+    aria-label="Light theme"
+  >
+    <svg
+      class="size-4"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      stroke-width="2.5"
+    >
+      <circle cx="12" cy="12" r="4"></circle>
+      <path
+        d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"
+      ></path>
+    </svg>
+  </button>
+
+  <button
+    data-theme-target="dark"
+    class="z-10 relative flex justify-center items-center rounded-full focus:outline-none size-7 text-gray-400 hover:text-white transition-colors cursor-pointer"
+    aria-label="Dark theme"
+  >
+    <svg
+      class="size-4"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      stroke-width="2.5"
+    >
+      <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+    </svg>
+  </button>
+</div>
+
+<script>
+  const updateIndicator = (activeTheme: string) => {
+    const indicator = document.getElementById("theme-indicator");
+    const lightBtn = document.querySelector(
+      '[data-theme-target="light"]',
+    ) as HTMLElement;
+    const darkBtn = document.querySelector(
+      '[data-theme-target="dark"]',
+    ) as HTMLElement;
+
+    if (!indicator || !lightBtn || !darkBtn) return;
+
+    indicator.style.width = `${lightBtn.offsetWidth}px`;
+
+    if (activeTheme === "light") {
+      indicator.style.transform = "translateX(0px)";
+      lightBtn.classList.remove("text-gray-400");
+      lightBtn.classList.add("text-yellow-500", "dark:text-yellow-400");
+      darkBtn.classList.remove("text-yellow-400");
+      darkBtn.classList.add("text-gray-400");
+    } else {
+      const offset = darkBtn.offsetLeft - lightBtn.offsetLeft;
+      indicator.style.transform = `translateX(${offset}px)`;
+      darkBtn.classList.remove("text-gray-400");
+      darkBtn.classList.add("text-yellow-400");
+      lightBtn.classList.remove("text-yellow-500", "dark:text-yellow-400");
+      lightBtn.classList.add("text-gray-400");
+    }
+  };
+
+  const setupThemePicker = () => {
+    const buttons = document.querySelectorAll("[data-theme-target]");
+
+    // 1. Read current layout state to set initial indicator position
+    const currentTheme = document.documentElement.classList.contains("dark")
+      ? "dark"
+      : "light";
+    updateIndicator(currentTheme);
+
+    buttons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const targetTheme = button.getAttribute("data-theme-target");
+        if (!targetTheme) return;
+
+        // 2. THIS WAS MISSING: Actually apply the theme class to the document root!
+        if (targetTheme === "dark") {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
+
+        // 3. Save choice and slide the indicator pill
+        localStorage.setItem("theme", targetTheme);
+        updateIndicator(targetTheme);
+      });
+    });
+  };
+
+  // Initialize on page load and inside view transitions
+  document.addEventListener("DOMContentLoaded", setupThemePicker);
+  document.addEventListener("astro:after-swap", setupThemePicker);
+</script>

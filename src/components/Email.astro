@@ -9,11 +9,13 @@ interface Props {
 const { email } = Astro.props;
 ---
 
-<div class="items-center w-full cursor-pointer">
+<div
+  class="items-center w-full text-gray-800 dark:text-white transition-colors duration-300 cursor-pointer"
+>
   <div
     class="flex justify-center items-center gap-x-4 px-2 lg:px-4 py-1 lg:py-2 text-xs lg:text-base"
   >
-    <MailIcon class="hidden sm:flex size-6" />
-    <CopyClipboard client:load>{email}</CopyClipboard>
+    <MailIcon class="hidden sm:flex size-6 text-current" />
+    <CopyClipboard url={Astro.url} client:load>{email}</CopyClipboard>
   </div>
 </div>

@@ -1,0 +1,49 @@
+---
+import Contributions from "@/components/Contributions.astro";
+import Experience from "@/components/Experience.astro";
+import Hero from "@/components/Hero.astro";
+import CodeIcon from "@/components/icons/CodeIcon.astro";
+import WorkIcon from "@/components/icons/WorkIcon.astro";
+import Projects from "@/components/Projects.astro";
+import SectionContainer from "@/components/SectionContainer.astro";
+import TitleSection from "@/components/TitleSection.astro";
+import { languages } from "@/i18n/ui";
+import { getLangFromUrl, useTranslations } from "@/i18n/utils";
+import Layout from "@/layouts/Layout.astro";
+
+export function getStaticPaths() {
+  return Object.keys(languages).map((lang) => ({ params: { lang } }));
+}
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<Layout title={t("title")} description={t("description")}>
+  <main class="px-4 text-black dark:text-white">
+    <SectionContainer class="py-16 md:py-16">
+      <Hero />
+    </SectionContainer>
+
+    <div class="space-y-24">
+      <SectionContainer id={t("nav.experience")}>
+        <TitleSection>
+          <WorkIcon class="size-10" />{t("section.experience.title")}
+        </TitleSection>
+        <Experience />
+      </SectionContainer>
+
+      <SectionContainer id={t("nav.projects")}>
+        <TitleSection>
+          <CodeIcon class="size-10" />{t("section.projects.title")}
+        </TitleSection>
+        <Projects />
+      </SectionContainer>
+
+      <SectionContainer id={t("nav.open-source")}>
+        <TitleSection>{t("section.open-source.title")}</TitleSection>
+        <Contributions />
+      </SectionContainer>
+    </div>
+  </main>
+</Layout>
